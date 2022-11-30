@@ -18,8 +18,15 @@ import java.io.*;
 import java.net.*;
 
 public class Talker {
-    public static void main(String args[]) {
-        private DatagramSocket socket;
+    public static void main(String args[]) throws IOException {
+        DatagramSocket talker = new DatagramSocket();
+        InetAddress address = InetAddress.getByName("localhost");
+        String str = "Hello World";
+        byte[] buf = str.getBytes();
+        DatagramPacket p = new DatagramPacket(buf, buf.length, address, 4160);
+        talker.send(p);
+        talker.close();
+        /* 
 
         // print greeting asking for message to be sent
         System.out.println("Welcome. Please enter a message less than or equal to fifty characters.");
@@ -36,7 +43,6 @@ public class Talker {
         System.out.println("Your message length is " + message.length());
         double number_of_messages = Math.ceil(message.length() / 10);
         System.out.println("The number of messages is " + number_of_messages);
-        /*
         String message0 = 
         String message1 = 
         String message2 = 
