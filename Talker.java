@@ -19,15 +19,6 @@ import java.net.*;
 
 public class Talker {
     public static void main(String args[]) throws IOException {
-        DatagramSocket talker = new DatagramSocket();
-        InetAddress address = InetAddress.getByName("localhost");
-        String str = "Hello World";
-        byte[] buf = str.getBytes();
-        DatagramPacket p = new DatagramPacket(buf, buf.length, address, 4160);
-        talker.send(p);
-        talker.close();
-        /* 
-
         // print greeting asking for message to be sent
         System.out.println("Welcome. Please enter a message less than or equal to fifty characters.");
         String message = "llllllllllllllllllllllllllllllllllllllllllllllllllll";
@@ -39,6 +30,19 @@ public class Talker {
                 System.out.println("Your message is greater than 50 characters. Please enter a valid message.");
             }
         }
+        System.out.println("Enter the port of the Listener.");
+        Scanner in = new Scanner(System.in);
+        String listener_port_string = in.nextLine();
+        int listener_port = Integer.parseInt(listener_port_string);
+        in.close();
+        System.out.println("The listener port is " + listener_port);
+        DatagramSocket talker = new DatagramSocket();
+        InetAddress address = InetAddress.getByName("localhost");
+        byte[] buf = message.getBytes();
+        DatagramPacket p = new DatagramPacket(buf, buf.length, address, listener_port);
+        talker.send(p);
+        talker.close();
+        /* 
         // break message up into 5 messages of 10 characters each
         System.out.println("Your message length is " + message.length());
         double number_of_messages = Math.ceil(message.length() / 10);
