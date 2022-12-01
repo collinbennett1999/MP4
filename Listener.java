@@ -28,7 +28,7 @@ public class Listener {
         String response = new String(packet.getData());
         System.out.println("Response Data : " + response);
 
-        //Listener sends back acknoledgement 
+        //Listener sends back acknowledgement 
         //to do: Send incrementing acknoledgements corresponding to message # sent
         InetAddress address = InetAddress.getByName("localhost");
         String ackString = "Message Received";

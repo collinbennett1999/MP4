@@ -30,6 +30,37 @@ public class Talker {
                 System.out.println("Your message is greater than 50 characters. Please enter a valid message.");
             }
         }
+        if (message.length() % 10 != 0) {
+            int fill = 10 - (message.length() % 10);
+            for (int i = 0; i < fill; i++) {
+                message = message + '\0';
+            }
+        }
+        
+        //parse the string into 10 char messages
+        String[] msgs = {"", "", "", "", "", ""}; //the array of msgs has 6 spots since msg 0 will tell Listener how many msgs
+        int number_of_messages = 0; 
+        int message_length = message.length();
+        while (message_length > 0) {
+            message_length = message_length - 10;
+            number_of_messages += 1;
+        }
+        //set first message to a character holding the number of msgs
+        String numMsg = String.valueOf(number_of_messages);
+        msgs[0] = numMsg;
+        
+        int index = 0;
+        for (int i = 1; i <= number_of_messages; i++) {
+            msgs[i] = message.substring(index, index + 10);
+            msgs[i] = i + msgs[i]; //add a tag to each msg identifying which msg # it is
+            index += 10;
+            
+        }
+        //TEST displays messages with their framing number
+        for (int i = 0; i <= number_of_messages; i++) {
+            System.out.println(msgs[i]);
+        }
+
         System.out.println("Enter the port of the Listener.");
         Scanner in = new Scanner(System.in);
         String listener_port_string = in.nextLine();
@@ -38,6 +69,9 @@ public class Talker {
         System.out.println("The listener port is " + listener_port);
         DatagramSocket talker = new DatagramSocket();
         InetAddress address = InetAddress.getByName("localhost");
+
+
+
         byte[] buf = message.getBytes();
         DatagramPacket p = new DatagramPacket(buf, buf.length, address, listener_port);
         talker.send(p);
