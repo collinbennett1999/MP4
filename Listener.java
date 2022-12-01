@@ -23,8 +23,19 @@ public class Listener {
         byte[] buf = new byte[256];
         DatagramPacket packet = new DatagramPacket(buf, buf.length);
         listener.receive(packet);
+        //Listener checks port to send acknoledgement to
+        int ackport = packet.getPort();
         String response = new String(packet.getData());
         System.out.println("Response Data : " + response);
+
+        //Listener sends back acknoledgement 
+        //to do: Send incrementing acknoledgements corresponding to message # sent
+        InetAddress address = InetAddress.getByName("localhost");
+        String ackString = "Message Received";
+        byte[] buf1 = ackString.getBytes();
+        DatagramPacket p = new DatagramPacket(buf1, buf1.length, address, ackport);
+        listener.send(p);
+        System.out.println("Sent ack");
         listener.close();
 
     }

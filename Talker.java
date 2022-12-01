@@ -41,6 +41,15 @@ public class Talker {
         byte[] buf = message.getBytes();
         DatagramPacket p = new DatagramPacket(buf, buf.length, address, listener_port);
         talker.send(p);
+
+        
+        byte[] buf1 = new byte[256];
+        DatagramPacket packet = new DatagramPacket(buf1, buf1.length);
+        talker.receive(packet);
+        String response = new String(packet.getData());
+        System.out.println("Acknowledged : " + response);
+
+
         talker.close();
         /* 
         // break message up into 5 messages of 10 characters each
