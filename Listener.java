@@ -3,20 +3,28 @@ import java.io.*;
 import java.net.*;
 
 public class Listener {
+    /**
+     * @param args
+     * @throws IOException
+     */
     public static void main(String args[]) throws IOException {
+        // get the port of the talker :: port example number: 4160
         System.out.println("Enter the port of the Talker.");
         Scanner in = new Scanner(System.in);
         int talker_port = Integer.parseInt(in.nextLine());
         System.out.println("The talker port is " + talker_port);
 
-        System.out.println("Enter the IP address of the Talker.");
-        in = new Scanner(System.in);
+        // get the ip address of the talker
+        System.out.println("Enter the IP address of the Talker."); 
         String talker_IP_address = in.nextLine();
-        in.close();
         System.out.println("The talker IP address is " + talker_IP_address);
+        in.close();
 
-        // port example number: 4160
+        // Request a UDP connection with the Talker 
         DatagramSocket listener = new DatagramSocket(talker_port);
+///////////////////////////////////////////////////////////////////////////////////////
+
+
         //InetAddress address = InetAddress.getByName("localhost");
         //listener.connect(address, talker_port);
         //System.out.println("Now connected to the talker.");
